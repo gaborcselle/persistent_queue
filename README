@@ -1,0 +1,13 @@
+com.gaborcselle.persistent.PersistentQueue
+
+Gabor Cselle (mail at gaborcselle dot com), August 10, 2005
+
+License: Public Domain - you can modify and redistribute without restrictions.
+
+Originally at: http://www.gaborcselle.com/open_source/java/persistent_queue.html
+
+This is an implementation of a persistent queue for Java 1.5 and higher. It keeps a copy of its status in a file on disk which is updated every time the queue contents are modified. Therefore, the data in the queue can survive program or system crashes. The name of the status file is given when calling the constructor.
+
+The type of elements held in the queue are determined by the type parameter E of this class. The type E has to extend the java.io.Serializable interface so that the entries can be written to the underlying file.
+
+Defragmentation: When the first element of the queue is deleted, not the entire file is written. Instead, a delete marker is appended to the end of the file to signal that the first element has been deleted. This scheme is explained in the illustration below. After some number of deletes (default: 50), the entire file is rewritten from scratch.
